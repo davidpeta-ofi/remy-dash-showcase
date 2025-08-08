@@ -5,6 +5,7 @@ import SalesForecast from "@/components/remy/SalesForecast";
 import StockAlerts from "@/components/remy/StockAlerts";
 import TableAllocation from "@/components/remy/TableAllocation";
 import PromotionsPanel from "@/components/remy/PromotionsPanel";
+import Overview from "@/components/remy/Overview";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Index = () => {
@@ -39,21 +40,7 @@ const Index = () => {
           </TabsList>
 
           <TabsContent value="overview">
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div className="lg:col-span-2 space-y-6">
-                <StaffCalendar />
-              </div>
-              <div className="space-y-6">
-                <SalesForecast />
-              </div>
-            </section>
-
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <StockAlerts />
-              <TableAllocation />
-            </section>
-
-            <PromotionsPanel />
+            <Overview />
           </TabsContent>
 
           <TabsContent value="staff">
