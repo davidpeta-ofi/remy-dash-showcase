@@ -113,11 +113,24 @@ const StaffCalendar: React.FC = () => {
               >
                 <span className="text-xs font-medium text-muted-foreground">{day ?? ""}</span>
                 {day && (
-                  <div className="mt-1 space-y-1 text-sm">
-                    <p>Kitchen: {seeded(day, month, year, 1, 1, 9)}</p>
-                    <p>floor: {seeded(day, month, year, 2, 1, 9)}</p>
-                    <p>Delivery: {seeded(day, month, year, 3, 1, 9)}</p>
-                  </div>
+                    <div className="mt-1 space-y-1 text-sm">
+                      {(() => {
+                        const k = seeded(day, month, year, 1, 1, 9);
+                        const f = seeded(day, month, year, 2, 1, 9);
+                        const d = seeded(day, month, year, 3, 1, 9);
+                        const total = k + f + d;
+                        const sales = seeded(day, month, year, 4, 100, 9999);
+                        const clients = seeded(day, month, year, 5, 20, 300);
+                        return (
+                          <>
+                            <p>Staff: {total} (K {k}, F {f}, D {d})</p>
+                            <p>Sales: €{sales.toLocaleString()}</p>
+                            <p>Clients: {clients}</p>
+                          </>
+                        );
+                      })()}
+                    </div>
+
                 )}
               </div>
             ))}

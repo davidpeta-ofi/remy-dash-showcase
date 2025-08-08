@@ -2,6 +2,8 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+
 
 const items = [
   { id: 1, name: "Pumpkin Soup", currentPrice: 6.5 },
@@ -10,7 +12,14 @@ const items = [
 ];
 
 const PromotionsPanel: React.FC = () => {
+  const [chatInput, setChatInput] = React.useState("");
+  const placeholderMessages = [
+    { id: 1, role: "assistant", text: "Try a midweek combo: soup + salad -15%." },
+    { id: 2, role: "user", text: "Any pizza of the month ideas?" },
+    { id: 3, role: "assistant", text: "Truffle mushroom pizza with seasonal herbs." },
+  ];
   return (
+
     <section aria-label="Promotions" className="space-y-3">
       <Card>
         <CardHeader>
@@ -35,7 +44,31 @@ const PromotionsPanel: React.FC = () => {
               </div>
             ))}
           </div>
+          <div className="mt-6 rounded-lg border border-border p-4 bg-card text-card-foreground">
+            <h3 className="text-base font-semibold">Ask for promo ideas</h3>
+            <p className="text-sm text-muted-foreground">Create pizza of the month based on trends</p>
+            <div className="mt-3 h-48 overflow-y-auto space-y-2 rounded-md bg-muted/40 p-3">
+              {placeholderMessages.map((m) => (
+                <div
+                  key={m.id}
+                  className={m.role === "user" ? "ml-auto max-w-[75%] rounded-md bg-primary/10 p-2 text-sm" : "max-w-[75%] rounded-md bg-accent/10 p-2 text-sm"}
+                >
+                  {m.text}
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex items-center gap-2">
+              <Input
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Type your question..."
+                aria-label="Promo chatbot input"
+              />
+              <Button type="button" variant="secondary" onClick={() => setChatInput("")}>Send</Button>
+            </div>
+          </div>
         </CardContent>
+
       </Card>
     </section>
   );

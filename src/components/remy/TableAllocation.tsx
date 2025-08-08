@@ -4,20 +4,21 @@ import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/components/ui/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const tables = [
-  { id: 1, shape: "circle" as const, seats: 2 },
-  { id: 2, shape: "circle" as const, seats: 4 },
-  { id: 3, shape: "rect" as const, seats: 6 },
-  { id: 4, shape: "rect" as const, seats: 4 },
-  { id: 5, shape: "circle" as const, seats: 2 },
-  { id: 6, shape: "rect" as const, seats: 8 },
-];
+const tables = Array.from({ length: 30 }, (_, i) => {
+  const id = i + 1;
+  const shape = id % 3 === 0 ? ("rect" as const) : ("circle" as const);
+  const seats = shape === "rect" ? (id % 4 === 0 ? 6 : 4) : (id % 5 === 0 ? 2 : 4);
+  return { id, shape, seats };
+});
+
 
 const reservations = [
   { id: "r1", name: "Smith", size: 2, time: "19:00" },
   { id: "r2", name: "Lee", size: 4, time: "19:30" },
   { id: "r3", name: "Garcia", size: 3, time: "20:00" },
 ];
+
+const isReserved = (id: number, date: Date) => ((id * (date.getDate() + 3) + date.getMonth() + date.getFullYear()) % 7) === 0;
 
 const ReservationCard: React.FC<{ r: (typeof reservations)[number] }> = ({ r }) => (
   <div
@@ -91,7 +92,7 @@ const TableAllocation: React.FC = () => {
                   className="absolute inset-3 origin-top-left"
                   style={{ transform: `scale(${zoom[0] / 100})` }}
                 >
-                  <div className="grid grid-cols-6 gap-4">
+                  <div className="grid grid-cols-5 gap-x-6 gap-y-8">
                     {tables.map((t) => (
                       <div
                         key={t.id}
@@ -105,12 +106,14 @@ const TableAllocation: React.FC = () => {
                         }}
                         aria-label={`Table ${t.id} with ${t.seats} seats`}
                         className={
-                          t.shape === "circle"
-                            ? "h-20 w-20 rounded-full bg-card border border-border flex items-center justify-center"
-                            : "h-20 w-28 rounded-md bg-card border border-border flex items-center justify-center"
+                          `${t.shape === "circle" ? "h-20 w-20 rounded-full" : "h-20 w-28 rounded-xl"} flex items-center justify-center border shadow-sm ${
+                            isReserved(t.id, selectedDate)
+                              ? "bg-secondary/20 border-secondary text-secondary-foreground"
+                              : "bg-accent/15 border-accent text-accent-foreground"
+                          }`
                         }
                       >
-                        <div className="text-sm text-muted-foreground">T{t.id} • {t.seats}</div>
+                        <div className="text-sm font-medium">T{t.id} • {t.seats}</div>
                       </div>
                     ))}
                   </div>
