@@ -114,24 +114,25 @@ const StaffCalendar: React.FC = () => {
         </h2>
       </div>
 
-      <Card>
-        <CardContent className="p-0">
-          <div className="grid grid-cols-7 text-xs border-b border-border/60">
-            {daysOfWeek.map((d) => (
-              <div key={d} className="px-3 py-2 text-muted-foreground font-medium">
-                {d}
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-7 gap-px bg-border/60">
-            {cells.map((day, idx) => (
-              <div
-                key={idx}
-                className="min-h-28 bg-background p-3 flex flex-col gap-1"
-                aria-label={day ? `Day ${day}` : "Empty cell"}
-              >
-                <span className="text-xs font-medium text-muted-foreground">{day ?? ""}</span>
-                {day && (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <Card className="md:col-span-2">
+          <CardContent className="p-0">
+            <div className="grid grid-cols-7 text-xs border-b border-border/60">
+              {daysOfWeek.map((d) => (
+                <div key={d} className="px-3 py-2 text-muted-foreground font-medium">
+                  {d}
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-7 gap-px bg-border/60">
+              {cells.map((day, idx) => (
+                <div
+                  key={idx}
+                  className="min-h-20 bg-background p-3 flex flex-col gap-1"
+                  aria-label={day ? `Day ${day}` : "Empty cell"}
+                >
+                  <span className="text-xs font-medium text-muted-foreground">{day ?? ""}</span>
+                  {day && (
                     <div className="mt-1 space-y-1 text-sm">
                       {(() => {
                         const k = seeded(day, month, year, 1, 1, 9);
@@ -149,13 +150,22 @@ const StaffCalendar: React.FC = () => {
                         );
                       })()}
                     </div>
-
-                )}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <aside>
+          <Card>
+            <CardContent className="p-4 space-y-3">
+              <h3 className="text-sm font-semibold">Staff KPIs</h3>
+              <div className="text-sm">Staff cost % of revenue: {staffPercent}%</div>
+              <div className="text-sm">Prediction accuracy: {accuracy}%</div>
+            </CardContent>
+          </Card>
+        </aside>
+      </div>
     </section>
   );
 };

@@ -89,34 +89,31 @@ const TableAllocation: React.FC = () => {
                 style={{ height: 360 }}
               >
                 <div
-                  className="absolute inset-3 origin-top-left"
-                  style={{ transform: `scale(${zoom[0] / 100})` }}
+                  className="absolute inset-3 grid grid-cols-5 grid-rows-6 gap-3 place-items-center"
                 >
-                  <div className="grid grid-cols-5 gap-x-6 gap-y-8">
-                    {tables.map((t) => (
-                      <div
-                        key={t.id}
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          const rid = e.dataTransfer.getData("text/plain");
-                          if (rid) {
-                            toast({ title: `Placed reservation on Table ${t.id}`, description: "Static demo only" });
-                          }
-                        }}
-                        aria-label={`Table ${t.id} with ${t.seats} seats`}
-                        className={
-                          `${t.shape === "circle" ? "h-16 w-16 md:h-20 md:w-20 rounded-full" : "h-16 w-24 md:h-20 md:w-28 rounded-xl"} flex items-center justify-center border shadow-sm ${
-                            isReserved(t.id, selectedDate)
-                              ? "bg-secondary/20 border-secondary text-secondary-foreground"
-                              : "bg-accent/15 border-accent text-accent-foreground"
-                          }`
+                  {tables.map((t) => (
+                    <div
+                      key={t.id}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const rid = e.dataTransfer.getData("text/plain");
+                        if (rid) {
+                          toast({ title: `Placed reservation on Table ${t.id}`, description: "Static demo only" });
                         }
-                      >
-                        <div className="text-sm font-medium">T{t.id} • {t.seats}</div>
-                      </div>
-                    ))}
-                  </div>
+                      }}
+                      aria-label={`Table ${t.id} with ${t.seats} seats`}
+                      className={
+                        `${t.shape === "circle" ? "rounded-full" : "rounded-xl"} h-full w-full flex items-center justify-center border shadow-sm ${
+                          isReserved(t.id, selectedDate)
+                            ? "bg-secondary/20 border-secondary text-secondary-foreground"
+                            : "bg-accent/15 border-accent text-accent-foreground"
+                        }`
+                      }
+                    >
+                      <div className="text-[10px] md:text-xs font-medium">T{t.id} • {t.seats}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
