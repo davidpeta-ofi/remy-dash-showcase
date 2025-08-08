@@ -38,6 +38,25 @@ const StaffCalendar: React.FC = () => {
 
   const { cells } = getMonthCells(month, year);
 
+  const computeKPIs = () => {
+    let totalK = 0, totalF = 0, totalD = 0, totalSales = 0;
+    for (const c of cells) {
+      if (!c) continue;
+      const k = seeded(c, month, year, 1, 1, 9);
+      const f = seeded(c, month, year, 2, 1, 9);
+      const d = seeded(c, month, year, 3, 1, 9);
+      const sales = seeded(c, month, year, 4, 100, 9999);
+      totalK += k; totalF += f; totalD += d; totalSales += sales;
+    }
+    const staffUnits = totalK + totalF + totalD;
+    const assumedCostPerUnit = 80;
+    const staffCost = staffUnits * assumedCostPerUnit;
+    const staffPercent = totalSales ? Math.min(100, Math.round((staffCost / totalSales) * 100)) : 0;
+    const accuracy = 80 + ((month + year) % 17);
+    return { staffPercent, accuracy };
+  };
+  const { staffPercent, accuracy } = computeKPIs();
+
   const prevMonth = () => {
     const d = new Date(year, month - 1, 1);
     setMonth(d.getMonth());

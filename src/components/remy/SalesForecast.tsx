@@ -93,69 +93,72 @@ const SalesForecast: React.FC = () => {
               <Label className="text-sm text-muted-foreground">Date Range:</Label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className={cn("w-auto justify-start text-left font-normal", !dateFrom && "text-muted-foreground")}>
+                  <Button variant="outline" className={cn("w-auto justify-start text-left font-normal", !dateFrom && "text-muted-foreground") }>
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {dateFrom ? format(dateFrom, "MMM dd") : "From"}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 z-50 bg-popover" align="start">
                   <Calendar mode="single" selected={dateFrom} onSelect={setDateFrom} initialFocus className="p-3 pointer-events-auto" />
                 </PopoverContent>
               </Popover>
               <span className="text-muted-foreground">to</span>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className={cn("w-auto justify-start text-left font-normal", !dateTo && "text-muted-foreground")}>
+                  <Button variant="outline" className={cn("w-auto justify-start text-left font-normal", !dateTo && "text-muted-foreground") }>
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {dateTo ? format(dateTo, "MMM dd") : "To"}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 z-50 bg-popover" align="start">
                   <Calendar mode="single" selected={dateTo} onSelect={setDateTo} initialFocus className="p-3 pointer-events-auto" />
                 </PopoverContent>
               </Popover>
             </div>
           </div>
 
-          <ChartContainer
-            config={{
-              sales: { label: "Sales", color: "hsl(var(--primary))" },
-              projection: { label: "Projection", color: "hsl(var(--accent))" },
-            }}
-            className="h-64"
-          >
-            <ResponsiveContainer>
-              <LineChart data={currentData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="period" />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Line type="monotone" dataKey="sales" stroke="var(--color-sales)" strokeWidth={2} dot={false} />
-                {showProjection && (
-                  <Line type="monotone" dataKey="projection" stroke="var(--color-projection)" strokeDasharray="5 5" strokeWidth={2} dot={false} />
-                )}
-              </LineChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-4">Sales by Category</h3>
-            <ChartContainer
-              config={{
-                amount: { label: "Revenue", color: "hsl(var(--secondary))" },
-              }}
-              className="h-48"
-            >
-              <ResponsiveContainer>
-                <BarChart data={categoryData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="category" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="amount" fill="var(--color-amount)" />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+            <div>
+              <ChartContainer
+                config={{
+                  sales: { label: "Sales", color: "hsl(var(--primary))" },
+                  projection: { label: "Projection", color: "hsl(var(--accent))" },
+                }}
+                className="h-64 md:h-72"
+              >
+                <ResponsiveContainer>
+                  <LineChart data={currentData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="period" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Line type="monotone" dataKey="sales" stroke="var(--color-sales)" strokeWidth={2} dot={false} />
+                    {showProjection && (
+                      <Line type="monotone" dataKey="projection" stroke="var(--color-projection)" strokeDasharray="5 5" strokeWidth={2} dot={false} />
+                    )}
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Sales by Category</h3>
+              <ChartContainer
+                config={{
+                  amount: { label: "Revenue", color: "hsl(var(--secondary))" },
+                }}
+                className="h-64 md:h-72"
+              >
+                <ResponsiveContainer>
+                  <BarChart data={categoryData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="category" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="amount" fill="var(--color-amount)" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

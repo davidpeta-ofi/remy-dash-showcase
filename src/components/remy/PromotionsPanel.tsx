@@ -46,7 +46,7 @@ const PromotionsPanel: React.FC = () => {
           </div>
           <div className="mt-6 rounded-lg border border-border p-4 bg-card text-card-foreground">
             <h3 className="text-base font-semibold">Ask for promo ideas</h3>
-            <p className="text-sm text-muted-foreground">Create pizza of the month based on trends</p>
+            
             <div className="mt-3 h-48 overflow-y-auto space-y-2 rounded-md bg-muted/40 p-3">
               {placeholderMessages.map((m) => (
                 <div
@@ -57,14 +57,27 @@ const PromotionsPanel: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="mt-3 flex items-center gap-2">
-              <Input
-                value={chatInput}
-                onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Type your question..."
-                aria-label="Promo chatbot input"
-              />
-              <Button type="button" variant="secondary" onClick={() => setChatInput("")}>Send</Button>
+            <div className="mt-3">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Suggested:</span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setChatInput("Create pizza of the month based on trends")}
+                >
+                  Create pizza of the month based on trends
+                </Button>
+              </div>
+              <div className="flex items-center gap-2">
+                <Input
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Type your question..."
+                  aria-label="Promo chatbot input"
+                />
+                <Button type="button" variant="secondary" onClick={() => setChatInput("")}>Send</Button>
+              </div>
             </div>
           </div>
         </CardContent>

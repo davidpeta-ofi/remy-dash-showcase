@@ -106,7 +106,7 @@ const TableAllocation: React.FC = () => {
                         }}
                         aria-label={`Table ${t.id} with ${t.seats} seats`}
                         className={
-                          `${t.shape === "circle" ? "h-20 w-20 rounded-full" : "h-20 w-28 rounded-xl"} flex items-center justify-center border shadow-sm ${
+                          `${t.shape === "circle" ? "h-16 w-16 md:h-20 md:w-20 rounded-full" : "h-16 w-24 md:h-20 md:w-28 rounded-xl"} flex items-center justify-center border shadow-sm ${
                             isReserved(t.id, selectedDate)
                               ? "bg-secondary/20 border-secondary text-secondary-foreground"
                               : "bg-accent/15 border-accent text-accent-foreground"
