@@ -22,7 +22,7 @@ const Index = () => {
   }, []);
   return <div className="min-h-screen text-foreground bg-slate-50">
       <GlobalKPI />
-      <main className="container mx-auto py-6 space-y-6 bg-sky-400">
+      <main className="container mx-auto py-6 space-y-6">
         <h1 className="sr-only">Remy Dashboard – Restaurant Operations</h1>
 
         <Tabs defaultValue="overview" className="w-full">
