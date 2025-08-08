@@ -7,7 +7,6 @@ import TableAllocation from "@/components/remy/TableAllocation";
 import PromotionsPanel from "@/components/remy/PromotionsPanel";
 import Overview from "@/components/remy/Overview";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-
 const Index = () => {
   React.useEffect(() => {
     document.title = "Remy Dashboard – Restaurant Ops"; // SEO title under 60 chars
@@ -16,21 +15,18 @@ const Index = () => {
     meta.setAttribute("name", "description");
     meta.setAttribute("content", desc);
     document.head.appendChild(meta);
-
     const link = document.querySelector('link[rel="canonical"]') || document.createElement("link");
     link.setAttribute("rel", "canonical");
     link.setAttribute("href", window.location.href);
     document.head.appendChild(link);
   }, []);
-
-  return (
-    <div className="min-h-screen bg-background text-foreground">
+  return <div className="min-h-screen text-foreground bg-slate-50">
       <GlobalKPI />
       <main className="container mx-auto py-6 space-y-6">
         <h1 className="sr-only">Remy Dashboard – Restaurant Operations</h1>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 bg-sky-400">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="staff">Staff Calendar</TabsTrigger>
             <TabsTrigger value="sales">Sales Chart</TabsTrigger>
@@ -64,8 +60,6 @@ const Index = () => {
           </TabsContent>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
