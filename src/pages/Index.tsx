@@ -5,6 +5,7 @@ import SalesForecast from "@/components/remy/SalesForecast";
 import StockAlerts from "@/components/remy/StockAlerts";
 import TableAllocation from "@/components/remy/TableAllocation";
 import PromotionsPanel from "@/components/remy/PromotionsPanel";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Index = () => {
   React.useEffect(() => {
@@ -26,21 +27,55 @@ const Index = () => {
       <GlobalKPI />
       <main className="container mx-auto py-6 space-y-6">
         <h1 className="sr-only">Remy Dashboard – Restaurant Operations</h1>
-        <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
+
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="staff">Staff Calendar</TabsTrigger>
+            <TabsTrigger value="sales">Sales Chart</TabsTrigger>
+            <TabsTrigger value="stock">Stock Alerts</TabsTrigger>
+            <TabsTrigger value="table">Table View</TabsTrigger>
+            <TabsTrigger value="promotions">Promotions</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview">
+            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <StaffCalendar />
+              </div>
+              <div className="space-y-6">
+                <SalesForecast />
+              </div>
+            </section>
+
+            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <StockAlerts />
+              <TableAllocation />
+            </section>
+
+            <PromotionsPanel />
+          </TabsContent>
+
+          <TabsContent value="staff">
             <StaffCalendar />
-          </div>
-          <div className="space-y-6">
+          </TabsContent>
+
+          <TabsContent value="sales">
             <SalesForecast />
-          </div>
-        </section>
+          </TabsContent>
 
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <StockAlerts />
-          <TableAllocation />
-        </section>
+          <TabsContent value="stock">
+            <StockAlerts />
+          </TabsContent>
 
-        <PromotionsPanel />
+          <TabsContent value="table">
+            <TableAllocation />
+          </TabsContent>
+
+          <TabsContent value="promotions">
+            <PromotionsPanel />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
