@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 
 const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -162,6 +163,7 @@ const StaffCalendar: React.FC = () => {
               <h3 className="text-sm font-semibold">Staff KPIs</h3>
               <div className="text-sm">Staff cost % of revenue: {staffPercent}%</div>
               <div className="text-sm">Prediction accuracy: {accuracy}%</div>
+              <Button className="w-full mt-4">Create Schedule</Button>
             </CardContent>
           </Card>
         </aside>

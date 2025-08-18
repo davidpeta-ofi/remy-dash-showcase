@@ -6,6 +6,7 @@ import StockAlerts from "@/components/remy/StockAlerts";
 import TableAllocation from "@/components/remy/TableAllocation";
 import PromotionsPanel from "@/components/remy/PromotionsPanel";
 import Overview from "@/components/remy/Overview";
+import ReviewsAndSocial from "@/components/remy/ReviewsAndSocial";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 const Index = () => {
   React.useEffect(() => {
@@ -26,13 +27,14 @@ const Index = () => {
         <h1 className="sr-only">Remy Dashboard – Restaurant Operations</h1>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 bg-sky-400">
+          <TabsList className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 bg-sky-400">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="staff">Staff Calendar</TabsTrigger>
             <TabsTrigger value="sales">Sales Chart</TabsTrigger>
             <TabsTrigger value="stock">Stock Alerts</TabsTrigger>
             <TabsTrigger value="table">Table View</TabsTrigger>
             <TabsTrigger value="promotions">Promotions</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews & Social</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -57,6 +59,10 @@ const Index = () => {
 
           <TabsContent value="promotions">
             <PromotionsPanel />
+          </TabsContent>
+
+          <TabsContent value="reviews">
+            <ReviewsAndSocial />
           </TabsContent>
         </Tabs>
       </main>
