@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Moon, Sun, RefreshCw, TrendingUp, Percent, Trash2, Repeat } from "lucide-react";
+import { Moon, Sun, RefreshCw, TrendingUp, Percent, Trash2, Repeat, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 const kpis = [{
   key: "labour",
   label: "Labour Cost %",
@@ -24,6 +25,7 @@ const kpis = [{
   Icon: TrendingUp
 }];
 const GlobalKPI: React.FC = () => {
+  const navigate = useNavigate();
   const [dark, setDark] = React.useState<boolean>(typeof document !== "undefined" ? document.documentElement.classList.contains("dark") : false);
   const toggleDark = () => {
     const root = document.documentElement;
@@ -42,6 +44,9 @@ const GlobalKPI: React.FC = () => {
           <div className="flex items-center gap-2">
             <Button variant="secondary" onClick={onRefresh} aria-label="Refresh dashboard">
               <RefreshCw className="h-4 w-4 mr-2" /> Refresh
+            </Button>
+            <Button variant="outline" onClick={() => navigate('/login')} aria-label="Go to profile">
+              <User className="h-4 w-4" />
             </Button>
             <Button variant="outline" onClick={toggleDark} aria-label="Toggle dark mode">
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
